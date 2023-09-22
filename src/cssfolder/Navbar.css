@@ -1,0 +1,28 @@
+
+/* <--------------------------- Navbar CSS -----------> */
+
+.navbar-logo {
+    width: 100%;
+    max-width: 10rem;
+    user-select: none;
+  }
+  
+  .drop-down {
+    cursor: pointer;
+    border: 2px solid gray;
+    border-radius: 15px;
+    padding: .5rem;
+  
+  }
+  .drop-down-button {
+    width: 100%;
+    margin-right: .45rem
+  }
+  
+  .drop-down-items {
+    position: absolute;
+  }
+  
+  .drop-down-items li {
+    list-style-type: none;
+  }

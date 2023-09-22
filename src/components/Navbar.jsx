@@ -2,13 +2,14 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../cssfolder/Navbar.css'
 
 export default function Navbar() {
     const [isDropped, setIsDropped] = useState(false)
 
     const toggleDropDown = () => {
         setIsDropped(!isDropped)
-    }
+    }   
 
     return (
         <div>
@@ -23,6 +24,8 @@ export default function Navbar() {
                             <Link to='signup'><li>Signup</li></Link>
                         </ul>
                         }
+                    
+
                     </div>
             </div>
         </div>
