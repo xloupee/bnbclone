@@ -2,6 +2,7 @@ import MongoClient from 'mongodb';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import express from 'express';
+import bycrpt from 'bcrypt'
 
 const app = express()
 
@@ -15,4 +16,17 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   })
   .catch(err => console.log(err));
 
-  console.log('hello wolrd')
+  const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+  });
+  
+  userSchema.pre('save', async function(next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  });
+  
+  const User = mongoose.model('User', userSchema);
+  
+  export default User;
