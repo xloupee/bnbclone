@@ -1,28 +1,72 @@
 
-/* <--------------------------- Navbar CSS -----------> */
-
 .navbar-logo {
-    width: 100%;
-    max-width: 10rem;
-    user-select: none;
-  }
-  
-  .drop-down {
-    cursor: pointer;
-    border: 2px solid gray;
-    border-radius: 15px;
-    padding: .5rem;
-  
-  }
-  .drop-down-button {
-    width: 100%;
-    margin-right: .45rem
-  }
-  
-  .drop-down-items {
-    position: absolute;
-  }
-  
-  .drop-down-items li {
-    list-style-type: none;
-  }
+  width: 100%;
+  max-width: 10rem;
+  user-select: none;
+}
+
+.drop-down {
+  cursor: pointer;
+  border: 2px solid gray;
+  border-radius: 15px;
+  padding: .5rem;
+
+}
+.drop-down-button {
+  width: 100%;
+  margin-right: .45rem
+}
+
+.drop-down-items {
+  position: absolute;
+}
+
+.drop-down-items li {
+  list-style-type: none;
+}
+
+.navbar-container {
+  width: 100%;          
+  border-bottom: 1px solid lightgrey; 
+  margin-bottom: 20px; 
+}
+
+.house-types {
+  display: flex;
+  flex-direction: row;  
+  justify-content: start; 
+  padding-left: 30px;    
+  margin-top: 30px;     
+}
+
+.icon {
+  background: none;  
+  border: none;   
+  cursor: pointer;  
+  padding: 0;      
+  outline: none;   
+  display: flex;    
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;  
+  margin-right: 50px; 
+}
+.icon .MuiSvgIcon-root {
+  font-size: 1.7rem;  
+}
+
+.icon:hover {
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+.icon.selected {
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.3); 
+}
+
+.icon:active {
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.castle {
+  margin-left: 80px;
+}
