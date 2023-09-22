@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import SignUp from './pages/signup'
 import Login from './pages/login'
 import Home from './pages/Home'
+import Room from './pages/room'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +18,7 @@ function App() {
           <Route path='login' element={<Login />}/>
           <Route path='signup' element={<SignUp />}/>
           <Route path='home' element={<Home />} />
+          <Route path='room' element={<Room />} />
         </Routes>
       </Router>
     </>

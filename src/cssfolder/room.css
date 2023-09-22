@@ -1,0 +1,99 @@
+/* RoomDetail.css */
+
+.room-detail {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .room-image {
+    flex: 1;
+    margin-right: 20px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  
+  .room-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .room-info {
+    flex: 2;
+  }
+  
+  .room-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .room-location {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  .room-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .room-rating,
+  .room-price {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .room-description {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  .room-details p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .amenities-list {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .book-button {
+    background-color: #ff5a5f;
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+  }
+  
+  .book-button:hover {
+    background-color: #ff4247;
+  }
+
+/* RoomDetail.css */
+
+/* ... (other styles) */
+
+.custom-carousel {
+    max-height: 400px; /* Set your desired height */
+    width: auto;
+    position: relative;
+}
+  
+  .carousel-image {
+    max-height: 400px;
+    width: auto;
+    object-fit: contain;
+  }
+  
