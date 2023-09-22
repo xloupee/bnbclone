@@ -20,7 +20,7 @@ export default function Navbar() {
                         {isDropped && 
                         <ul className='drop-down-items'>
                             <Link to='login'>Login</Link>
-                            <li>Signup</li>
+                            <Link to='signup'><li>Signup</li></Link>
                         </ul>
                         }
                     </div>

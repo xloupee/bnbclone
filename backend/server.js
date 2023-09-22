@@ -1,35 +1,19 @@
+import MongoClient from 'mongodb';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
 import express from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import User from './user';
-import authRoutes from './routes/auth'
+import bycrpt from 'bcrypt'
 
-const router = express.Router();
+const app = express()
 
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+const dbURI = 'mongodb+srv://test1:test123@data.23manba.mongodb.net/?retryWrites=true&w=majority'
 
-  const user = new User({ email, password });
-  await user.save();
+console.log("Starting...");
 
-  res.status(201).send('User registered');
-});
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(result => {
+    console.log('worked')
+    app.listen(3000)
+  })
+  .catch(err => console.log(err));
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(400).send('User not found');
-  }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(400).send('Invalid credentials');
-  }
-
-  const token = jwt.sign({ _id: user._id }, 'secret_key', { expiresIn: '1h' });
-  res.status(200).json({ token });
-});
-
-export default router;
