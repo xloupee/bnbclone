@@ -16,6 +16,7 @@ function Login() {
         if (res.data.message === "Logged in") {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('firstName', res.data.user.firstname);
+            localStorage.setItem('email', res.data.user.email);
             navigate("/home");
         } else {
             alert(res.data.message);

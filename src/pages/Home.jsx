@@ -8,6 +8,7 @@ export default function Home() {
     const handleSignOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('firstName');
+        localStorage.removeItem('email');
     }
     
     console.log(location.state)

@@ -8,7 +8,6 @@ import Home from './pages/Home'
 import Room from './pages/room'
 
 function App() {
-  const [count, setCount] = useState(0)
   
   return (
     <>

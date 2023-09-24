@@ -28,6 +28,7 @@ function SignUp() {
             alert('Signup successful!')
             localStorage.setItem('firstName', firstName)
             localStorage.setItem('token', res.data.token)
+            localStorage.setItem('email', email)
             navigate("/home", { state: { email: email, firstName: firstName } });
         }
     } catch (err) {
