@@ -15,7 +15,6 @@ const dbURI = 'mongodb+srv://test1:test123@data.23manba.mongodb.net/?retryWrites
 // Connect to MongoDB
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
-    console.log('Database connection worked');
     app.listen(3000, () => {
       console.log('Server is running on http://localhost:3000/');
     });
@@ -24,6 +23,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Define Schema and Model
 const userSchema = new mongoose.Schema({
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true
@@ -38,7 +45,7 @@ const User = mongoose.model("User", userSchema);
 
 // Signup Route
 app.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
   
   try {
     const existingUser = await User.findOne({ email });
@@ -48,8 +55,10 @@ app.post('/signup', async (req, res) => {
     }
 
     const newUser = new User({
+      firstname,
+      lastname,
       email,
-      password // Note: In a real-world application, make sure to hash the password before storing it
+      password
     });
 
     await newUser.save();
@@ -59,5 +68,4 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// Export the model (If needed)
 export default User;

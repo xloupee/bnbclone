@@ -1,12 +1,13 @@
 import React from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 export default function Home() {
-    const location=useLocation()
+    const location = useLocation();
+    const firstName = location.state.firstName;
     
     return ( 
         <div className="home-container">
-            <h1>Hello {location.state.id}</h1>
+            <h1>Hello {firstName}</h1>
         </div>
     )
 }

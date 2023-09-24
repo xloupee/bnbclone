@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,12 +13,20 @@ function SignUp() {
     e.preventDefault();
 
     try {
-        const res = await axios.post("http://localhost:3000/signup", { email, password });
+        const res = await axios.post("http://localhost:3000/signup", 
+        { 
+          firstname: firstName,  
+          lastname: lastName,
+          email, 
+          password, 
+        })
+
         if (res.data === "exist") {
             alert('User already exists');
-        } else if (res.data === "User created") {
+        } 
+        else if (res.data === "User created") {
             alert('Signup successful!')
-            navigate("/home", { state: { id: email } });
+            navigate("/home", { state: { email: email, firstName: firstName } });
         }
     } catch (err) {
         alert(`An error occurred: ${err}`);
@@ -28,6 +38,8 @@ function SignUp() {
     <div className='signup-container'>
         <h1>Signup</h1>
         <form onSubmit={submit}>
+            <input type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" />
+            <input type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" />
             <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
             <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
             <input type="submit" value="Sign Up" />
