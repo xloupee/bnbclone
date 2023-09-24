@@ -15,9 +15,9 @@ function Login() { // Changed from SignUp to Login for clarity
         
         if (res.data === "exist") {
             navigate("/home", { state: { id: email } });
-        } else if (res.data === "does not exist") {
+        } else if (res.data.message === "does not exist") {
             alert('User has not signed up.');
-        } else if (res.data === "Invalid password") {
+        } else if (res.data.message === "Invalid password") {
             alert('Invalid password.');
         }
     } catch (err) {
@@ -29,7 +29,7 @@ function Login() { // Changed from SignUp to Login for clarity
   return (
     <div className='login-container'>
         <h1>Login</h1>
-        <form onSubmit={submit}> {/* Removed action="POST" */}
+        <form onSubmit={submit}>
             <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
             <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
             <input type="submit" value="Login" />
@@ -38,4 +38,4 @@ function Login() { // Changed from SignUp to Login for clarity
   );
 }
 
-export default Login; // Changed from SignUp to Login for clarity
+export default Login; 

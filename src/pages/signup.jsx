@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../components/Api';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function SignUp() {
     e.preventDefault();
 
     try {
-        const res = await axios.post("http://localhost:3000/signup", 
+        const res = await api.post("/signup", 
         { 
           firstname: firstName,  
           lastname: lastName,
@@ -21,11 +21,13 @@ function SignUp() {
           password, 
         })
 
-        if (res.data === "exist") {
+        if (res.data.message === "exist") {
             alert('User already exists');
         } 
-        else if (res.data === "User created") {
+        else if (res.data.message === "User created") {
             alert('Signup successful!')
+            localStorage.setItem('firstName', firstName)
+            localStorage.setItem('token', res.data.token)
             navigate("/home", { state: { email: email, firstName: firstName } });
         }
     } catch (err) {

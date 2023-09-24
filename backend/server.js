@@ -1,27 +1,23 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import bcrypt from 'bcrypt'; 
 import cors from 'cors';
+import jwt from "jsonwebtoken"
 
-// Initialize the app
-const app = express();
+const app = express();  
 
-// Middlewares
+// Database connection
+const dbURI = 'mongodb+srv://test1:test123@data.23manba.mongodb.net/?retryWrites=true&w=majority';
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Database connected'))
+  .catch(err => console.log(err));
+
+// Middleware
 app.use(express.json());
 app.use(cors());
 
-// MongoDB URI
-const dbURI = 'mongodb+srv://test1:test123@data.23manba.mongodb.net/?retryWrites=true&w=majority';
 
-// Connect to MongoDB
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => {
-    app.listen(3000, () => {
-      console.log('Server is running on http://localhost:3000/');
-    });
-  })
-  .catch(err => console.log(err));
-
-// Define Schema and Model
+// Schema and Model
 const userSchema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -43,7 +39,8 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-// Signup Route
+
+// user sign up
 app.post('/signup', async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
   
@@ -51,21 +48,72 @@ app.post('/signup', async (req, res) => {
     const existingUser = await User.findOne({ email });
     
     if (existingUser) {
-      return res.status(400).json('User already exists');
+      return res.status(400).json({message: 'User already exists'});
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       firstname,
       lastname,
       email,
-      password
+      password: hashedPassword 
     });
 
     await newUser.save();
-    res.status(201).json('User created');
-  } catch (error) {
+
+    const userPayload = {
+      id: newUser._id,
+      email: newUser.email,
+      firstname: newUser.firstname,
+      lastname: newUser.lastname
+    };
+
+    const token = jwt.sign(userPayload, 'YOUR_SECRET_KEY', { expiresIn: '1h' });
+    res.cookie('authToken', token, { httpOnly: true, secure: true });
+    res.status(201).json({ message: 'User created', token: token });
+  } 
+  catch (error) {
     res.status(500).json(`Error: ${error}`);
   }
 });
 
-export default User;
+
+// user login
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const existingUser = await User.findOne({ email });
+
+        if (!existingUser) {
+          return res.status(400).json({ message: "User does not exist" });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+        if (!isPasswordValid) {
+          return res.status(400).json({ message: "Invalid password" });
+        }
+
+        const userPayload = {
+          id: existingUser._id,
+          email: existingUser.email,
+          firstname: existingUser.firstname,
+          lastname: existingUser.lastname
+        };
+
+        const token = jwt.sign(userPayload, 'YOUR_SECRET_KEY', { expiresIn: '1h' });
+        res.cookie('authToken', token, { httpOnly: true, secure: true });
+        res.json({ message: "Logged in", token: token, user: userPayload });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("Internal Server Error");
+    }
+});
+
+
+// listen to local server
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000/');
+});
