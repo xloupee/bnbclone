@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../components/Api';
 
-function Login() { // Changed from SignUp to Login for clarity
+function Login() { 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,20 +11,20 @@ function Login() { // Changed from SignUp to Login for clarity
     e.preventDefault();
 
     try {
-        const res = await axios.post("http://localhost:3000/login", { email, password });
+        const res = await api.post("login", { email, password });
         
-        if (res.data === "exist") {
-            navigate("/home", { state: { id: email } });
-        } else if (res.data.message === "does not exist") {
-            alert('User has not signed up.');
-        } else if (res.data.message === "Invalid password") {
-            alert('Invalid password.');
+        if (res.data.message === "Logged in") {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('firstName', res.data.user.firstname);
+            navigate("/home");
+        } else {
+            alert(res.data.message);
         }
     } catch (err) {
         alert(`An error occurred: ${err}`);
         console.log(err);
     }
-  }
+}
 
   return (
     <div className='login-container'>
