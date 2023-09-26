@@ -42,9 +42,7 @@ function SignUp() {
   return (
     <div className='signup-container'>
       <div className='signup-navbar'>
-        <div className='signup-header'>
           <h2>Sign Up</h2>        
-        </div>
       </div>
         <form onSubmit={submit} className='navbar-form'>
           <div className='name-section'>
