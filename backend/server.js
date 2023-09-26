@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  birthdate: {
+    type: Date,
+    required: true
   }
 }, { timestamps: true });
 
@@ -41,7 +45,7 @@ const User = mongoose.model("User", userSchema);
 
 // user sign up
 app.post('/signup', async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+  const { firstname, lastname, email, password, birthdate } = req.body;
   
   try {
     const existingUser = await User.findOne({ email });
@@ -56,7 +60,8 @@ app.post('/signup', async (req, res) => {
       firstname,
       lastname,
       email,
-      password: hashedPassword 
+      password: hashedPassword,
+      birthdate
     });
 
     await newUser.save();
@@ -65,7 +70,8 @@ app.post('/signup', async (req, res) => {
       id: newUser._id,
       email: newUser.email,
       firstname: newUser.firstname,
-      lastname: newUser.lastname
+      lastname: newUser.lastname,
+      birthdate: newUser.birthdate
     };
 
     const token = jwt.sign(userPayload, 'YOUR_SECRET_KEY', { expiresIn: '1h' });

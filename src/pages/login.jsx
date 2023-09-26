@@ -39,15 +39,17 @@ function Login() {
   return (
     <div className='login-container signup-container'>
         <div className='signup-navbar'>
-           <h1>Login</h1>
+           <h1>Log in or sign up</h1>
         </div>
+        <h3 className='login-header'>Welcome to Airbnb</h3>
         <form onSubmit={submit} className='navbar-form'>
             <div className='name-section'>
                 <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" className='input-fields first'/>
                 <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" className='input-fields last'/>
             </div>
             <p className='signup-paragraph'>We'll email or text you to confirm your email. </p>
-            <input type="submit" value="Login" className='airbnb-button login-button'/>
+            <input type="submit" value="Log in" className='airbnb-button login-button'/>
+            <div class="divider">or</div>
             <ul className='login-buttons-ul'>
                 <div className='login-button-div' onClick={throwError}>
                     <MailOutlineIcon className='company-logo mail'/>
@@ -72,3 +74,4 @@ function Login() {
 }
 
 export default Login; 
+ 

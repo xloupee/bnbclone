@@ -1,17 +1,17 @@
 import React from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function Home() {
     const location = useLocation();
     const firstName = localStorage.getItem('firstName')
-    
+    const navigate = useNavigate()
     const handleSignOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('firstName');
         localStorage.removeItem('email');
+        navigate("/login")
     }
     
-    console.log(location.state)
     return ( 
         <div className="home-container">
             <h1>Hello {firstName}</h1>
