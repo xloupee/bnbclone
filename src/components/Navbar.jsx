@@ -3,10 +3,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../cssfolder/Navbar.css'
-import CastleIcon from '@mui/icons-material/Castle';
-import CabinIcon from '@mui/icons-material/Cabin';
-import SailingIcon from '@mui/icons-material/Sailing';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+
 
 export default function Navbar() {
     const [isDropped, setIsDropped] = useState(false)
@@ -35,36 +32,7 @@ export default function Navbar() {
                         </div>
                     </div>
             </div>
-            <div className='house-types'>
-                <div className='icon-container castle'>
-                    <button className={`icon ${selectedIcon === 'castle' ? 'selected' : ''}`}
-                        onClick={() => setSelectedIcon('castle')}>
-                        <CastleIcon />
-                        <p>Castle</p> 
-                    </button>
-                </div>
-                <div className='icon-container cabin'>
-                    <button className={`icon ${selectedIcon === 'cabin' ? 'selected' : ''}`}
-                        onClick={() => setSelectedIcon('cabin')}>
-                        <CabinIcon />
-                        <p>Cabins</p> 
-                    </button>
-                </div>
-                <div className='icon-container boats'>
-                    <button className={`icon ${selectedIcon === 'boats' ? 'selected' : ''}`}
-                        onClick={() => setSelectedIcon('boats')}>
-                        <SailingIcon />
-                        <p>Boats</p> 
-                    </button>
-                </div>
-                <div className='icon-container beach'>
-                    <button className={`icon ${selectedIcon === 'beach' ? 'selected' : ''}`}
-                        onClick={() => setSelectedIcon('beach')}>
-                        <BeachAccessIcon />
-                        <p>Beaches</p> 
-                    </button>
-                </div>
-             </div>
+    
         </div>
     )
 }
